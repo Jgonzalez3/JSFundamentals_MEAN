@@ -13,10 +13,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
     </head>
     <style>
+        .container{
+            margin: 20px auto;
+        }
         #question{
             padding: 50px;
             margin: 15px;
             border: double black 1px;
+        }
+        .losebox{
+            padding-top: 25px;
         }
     </style>
     <script>
@@ -70,7 +76,7 @@
                 document.getElementById("score").innerHTML = `${score} points`;
                 $(this).parents("#question").html("<p>Answered</p>").attr('class', "btn btn-lg btn-secondary");
                 if(score < 0){
-                    $("body").html("<h1>Score below 0. You Lose!!</h1><button id='playagain' class='btn btn-lg btn-dark'>Play Again?</button>");
+                    $("body").html("<div class='losebox text-center'><h1>Score below 0. You Lose!!</h1><button id='playagain' class='btn btn-lg btn-dark'>Play Again?</button></div>");
                 }
                 count++;
                 if(count>4){
@@ -87,27 +93,30 @@
             count = 0;
             $.get("https://opentdb.com/api.php?amount=5&category=9", displayQuestions);
         });
+        //code below reloads game if playagain button hit
         $(document).on("click", "#playagain", function(){
             window.location.reload();
         })
     });
 </script>
 <body>
-    <div class="row">
-        <div class="col-12 col-xs-4 col-sm-4 col-md-4">
-            <button id="newquestions" class="btn btn-link">Continue with new questions</button>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-xs-4 col-sm-4 col-md-4">
+                <button id="newquestions" class="btn btn-link">Continue with new questions</button>
+            </div>
+            <div class="col-6 col-xs-4 col-sm-4 col-md-4">
+                <h1>Trivia Night</h1>
+            </div>
+            <div class="col-6 col-xs-4 col-sm-4 col-md-4">
+                <h1 id="score">0 points</h1>
+            </div>
         </div>
-        <div class="col-6 col-xs-4 col-sm-4 col-md-4">
-            <h1>Trivia Night</h1>
+        <div class="row">
+            <div class="category text-center"></div></div>
+        <div class="row text-center">
+            <div id="questions"></div>
         </div>
-        <div class="col-6 col-xs-4 col-sm-4 col-md-4">
-            <h1 id="score">0 points</h1>
-        </div>
-    </div>
-    <div class="row">
-        <div class="category"></div></div>
-    <div class="row">
-        <div id="questions"></div>
     </div>
 </body>
 </html>
